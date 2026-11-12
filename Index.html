@@ -1,1 +1,255 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAVO SMP | Official Store</title>
+<meta name="description" content="Official Store ZAVO SMP">
+<style>
+:root{--red:#e52d40;--bg:#09090d;--card:#15151c;--muted:#aaaab5}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font-family:Arial,sans-serif}
+header{height:70px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;background:#111116;border-bottom:1px solid #292932;position:sticky;top:0;z-index:5}
+.logo{font-size:23px;font-weight:900;letter-spacing:2px}.logo span{color:var(--red)}
+nav{display:flex;align-items:center;gap:20px}
+nav a{color:#ddd;text-decoration:none;font-size:13px}
+button{cursor:pointer;font-weight:bold}
+.btn{background:var(--red);color:white;border:0;border-radius:7px;padding:12px 17px}
+.lang,.cartbtn{background:#282830;color:white;border:1px solid #444;padding:10px;border-radius:7px}
+.hero{text-align:center;padding:95px 15px;background:radial-gradient(ellipse at top,#58151f,transparent 68%)}
+.hero small{color:#ff6977;letter-spacing:4px;font-weight:bold}
+.hero h1{font-size:clamp(38px,8vw,72px);margin:23px 0;line-height:1.08}
+.hero h1 span{color:var(--red)}
+.hero p{color:#bbb;line-height:1.8}
+.wrap{max-width:1100px;margin:auto;padding:25px 18px 70px}
+.notice{background:#251116;border:1px solid #702631;border-radius:9px;padding:17px;color:#edc6ca;font-size:13px;line-height:1.8}
+section{margin-top:45px}
+h2{font-size:21px;border-left:4px solid var(--red);padding-left:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.product{background:linear-gradient(145deg,#1c1c25,#111116);border:1px solid #30303a;border-radius:12px;padding:20px;transition:.2s}
+.product:hover{border-color:var(--red);transform:translateY(-3px)}
+.product .symbol{font-size:30px}
+.product small{color:#ff7480;font-size:10px;letter-spacing:2px}
+.product h3{margin:12px 0 6px}
+.product p{font-size:12px;color:var(--muted)}
+.price{font-size:22px;font-weight:bold;margin:18px 0}
+.add{width:100%;padding:12px;border:0;border-radius:7px;background:var(--red);color:white}
+.cart{margin-top:48px;background:var(--card);border:1px solid #30303a;border-radius:12px;padding:22px}
+.cartrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid #333}
+.cartrow small{color:#aaa}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{border:0;background:#30303a;color:white;padding:7px 11px;border-radius:5px}
+.remove{color:#ff6675!important}
+.total{display:flex;justify-content:space-between;padding:20px 0;font-size:20px;font-weight:bold}
+.field{width:100%;padding:13px;margin:8px 0 15px;background:#0d0d12;color:white;border:1px solid #444;border-radius:7px}
+.checkout{width:100%;padding:15px;border:0;border-radius:8px;background:#168b4b;color:white;font-size:14px}
+.empty{color:#aaa;font-size:13px;padding:15px 0}
+footer{text-align:center;padding:30px;color:#777;border-top:1px solid #292932;font-size:12px;line-height:2}
+@media(max-width:600px){header{padding:0 13px}nav{gap:7px}nav a{display:none}.hero{padding:65px 12px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ZAVO<span>STORE</span></div>
+  <nav>
+    <a href="#ranks">Ranks</a>
+    <a href="#spawners">Spawners</a>
+    <a href="#keys">Keys</a>
+    <button class="lang" onclick="toggleLang()" id="lang">EN</button>
+    <button class="cartbtn" onclick="document.getElementById('cart').scrollIntoView()">🛒 <span id="count">0</span></button>
+  </nav>
+</header>
+
+<div class="hero">
+  <small>OFFICIAL ZAVO SMP STORE</small>
+  <h1 id="headline">UPGRADE YOUR<br><span>ZAVO EXPERIENCE.</span></h1>
+  <p id="subtitle">Unlock exclusive ranks, powerful spawners and special keys.<br>Take your adventure to the next level.</p>
+  <a href="#ranks"><button class="btn" id="explore">EXPLORE STORE</button></a>
+</div>
+
+<main class="wrap">
+  <div class="notice">
+    <b id="noticeTitle">INFORMASI PEMBELIAN</b><br>
+    <span id="noticeText">Pembayaran dilakukan secara manual. Setelah checkout, tunggu instruksi pembayaran dan konfirmasi admin sebelum item dikirim.</span>
+  </div>
+
+  <section id="ranks">
+    <h2 id="monthlyTitle">👑 RANK BULANAN</h2>
+    <div class="grid" id="monthly"></div>
+  </section>
+
+  <section>
+    <h2 id="permanentTitle">♾️ RANK PERMANENT</h2>
+    <div class="grid" id="permanent"></div>
+  </section>
+
+  <section id="spawners">
+    <h2 id="spawnerTitle">🧟 SPAWNER</h2>
+    <div class="grid" id="spawnersGrid"></div>
+  </section>
+
+  <section id="keys">
+    <h2 id="keyTitle">🔑 ZAVO KEYS</h2>
+    <div class="grid" id="keysGrid"></div>
+  </section>
+
+  <div class="cart" id="cart">
+    <h2 id="cartTitle">🛒 KERANJANG BELANJA</h2>
+    <div id="items" class="empty">Keranjang masih kosong.</div>
+    <label for="nickname" id="nickLabel">Nickname Minecraft</label>
+    <input class="field" id="nickname" placeholder="Masukkan nickname Minecraft">
+    <div class="total"><span id="totalLabel">TOTAL</span><span id="total">Rp0</span></div>
+    <button class="checkout" onclick="checkout()" id="checkoutBtn">CHECKOUT VIA WHATSAPP</button>
+  </div>
+</main>
+
+<footer>
+  © 2026 ZAVO SMP · OFFICIAL STORE<br>
+  <span>PLAY • SURVIVE • DOMINATE</span><br>
+  zavomc.my.id
+</footer>
+
+<script>
+const products = [
+ {name:"ELITE",price:10000,category:"MONTHLY RANK",icon:"⚔️",group:"monthly"},
+ {name:"ROYAL",price:20000,category:"MONTHLY RANK",icon:"👑",group:"monthly"},
+ {name:"IMPERIAL",price:30000,category:"MONTHLY RANK",icon:"💎",group:"monthly"},
+ {name:"IMMORTAL",price:50000,category:"MONTHLY RANK",icon:"🔥",group:"monthly"},
+ {name:"DEMON",price:60000,category:"MONTHLY RANK",icon:"☠️",group:"monthly"},
+
+ {name:"ELITE",price:30000,category:"PERMANENT RANK",icon:"⚔️",group:"permanent"},
+ {name:"ROYAL",price:60000,category:"PERMANENT RANK",icon:"👑",group:"permanent"},
+ {name:"IMPERIAL",price:85000,category:"PERMANENT RANK",icon:"💎",group:"permanent"},
+ {name:"IMMORTAL",price:125000,category:"PERMANENT RANK",icon:"🔥",group:"permanent"},
+ {name:"DEMON",price:175000,category:"PERMANENT RANK",icon:"☠️",group:"permanent"},
+
+ {name:"PIG",price:2000,category:"SPAWNER",icon:"🐷",group:"spawner"},
+ {name:"COW",price:3000,category:"SPAWNER",icon:"🐮",group:"spawner"},
+ {name:"ZOMBIE",price:4000,category:"SPAWNER",icon:"🧟",group:"spawner"},
+ {name:"SKELETON",price:5000,category:"SPAWNER",icon:"💀",group:"spawner"},
+ {name:"CREEPER",price:6000,category:"SPAWNER",icon:"🟩",group:"spawner"},
+ {name:"BLAZE",price:7000,category:"SPAWNER",icon:"🔥",group:"spawner"},
+ {name:"IRON GOLEM",price:8000,category:"SPAWNER",icon:"🗿",group:"spawner"},
+
+ {name:"ZAVO KEY",price:5000,category:"SPECIAL KEY",icon:"🔑",group:"key"}
+];
+
+let cart = {};
+let language = "id";
+
+function money(n){
+ return "Rp"+n.toLocaleString("id-ID");
+}
+
+function renderProducts(){
+ const targets={monthly:"monthly",permanent:"permanent",spawner:"spawnersGrid",key:"keysGrid"};
+ Object.keys(targets).forEach(group=>{
+  document.getElementById(targets[group]).innerHTML="";
+ });
+ products.forEach((p,i)=>{
+  const el=document.createElement("article");
+  el.className="product";
+  el.innerHTML=`
+   <div class="symbol">${p.icon}</div>
+   <small>${p.category}</small>
+   <h3>${p.name}</h3>
+   <p>${language==="id"?"Produk resmi ZAVO SMP":"Official ZAVO SMP product"}</p>
+   <div class="price">${money(p.price)}</div>
+   <button class="add" onclick="addToCart(${i})">${language==="id"?"+ TAMBAH KE KERANJANG":"+ ADD TO CART"}</button>
+  `;
+  document.getElementById(targets[p.group]).appendChild(el);
+ });
+}
+
+function addToCart(i){
+ cart[i]=(cart[i]||0)+1;
+ renderCart();
+}
+
+function changeQty(i,amount){
+ cart[i]=(cart[i]||0)+amount;
+ if(cart[i]<=0) delete cart[i];
+ renderCart();
+}
+
+function renderCart(){
+ const items=document.getElementById("items");
+ const entries=Object.entries(cart);
+ let total=0,count=0;
+
+ if(entries.length===0){
+  items.className="empty";
+  items.textContent=language==="id"?"Keranjang masih kosong.":"Your cart is empty.";
+ }else{
+  items.className="";
+  items.innerHTML="";
+  entries.forEach(([key,qty])=>{
+   const p=products[Number(key)];
+   total+=p.price*qty;
+   count+=qty;
+   const row=document.createElement("div");
+   row.className="cartrow";
+   row.innerHTML=`
+    <div><b>${p.name}</b><br><small>${money(p.price)} × ${qty}</small></div>
+    <div class="qty">
+     <button onclick="changeQty(${key},-1)">−</button>
+     <b>${qty}</b>
+     <button onclick="changeQty(${key},1)">+</button>
+     <button class="remove" onclick="changeQty(${key},-${qty})">×</button>
+    </div>`;
+   items.appendChild(row);
+  });
+ }
+ document.getElementById("total").textContent=money(total);
+ document.getElementById("count").textContent=count;
+}
+
+function checkout(){
+ const nickname=document.getElementById("nickname").value.trim();
+ const entries=Object.entries(cart);
+ if(!entries.length){alert(language==="id"?"Keranjang masih kosong!":"Your cart is empty!");return;}
+ if(!nickname){alert(language==="id"?"Masukkan nickname Minecraft terlebih dahulu!":"Enter your Minecraft nickname first!");return;}
+
+ let total=0;
+ let message="Halo Admin ZAVO SMP! Saya ingin melakukan pembelian:%0A%0A";
+ message+="Nickname: "+encodeURIComponent(nickname)+"%0A%0A";
+ entries.forEach(([key,qty])=>{
+  const p=products[Number(key)];
+  total+=p.price*qty;
+  message+=encodeURIComponent(p.name+" x"+qty+" = "+money(p.price*qty))+"%0A";
+ });
+ message+="%0A"+encodeURIComponent("Total: "+money(total));
+ message+="%0A%0A"+encodeURIComponent("Mohon instruksi pembayaran dan konfirmasi. Terima kasih!");
+ window.open("https://wa.me/6289643573697?text="+message,"_blank");
+}
+
+function toggleLang(){
+ language=language==="id"?"en":"id";
+ document.getElementById("lang").textContent=language==="id"?"EN":"ID";
+ document.getElementById("headline").innerHTML=language==="id"?'TINGKATKAN<br><span>PENGALAMAN ZAVO.</span>':'UPGRADE YOUR<br><span>ZAVO EXPERIENCE.</span>';
+ document.getElementById("subtitle").innerHTML=language==="id"?'Dapatkan rank eksklusif, spawner kuat, dan key spesial.<br>Tingkatkan petualanganmu sekarang.':'Unlock exclusive ranks, powerful spawners and special keys.<br>Take your adventure to the next level.';
+ document.getElementById("explore").textContent=language==="id"?"LIHAT PRODUK":"EXPLORE STORE";
+ document.getElementById("noticeTitle").textContent=language==="id"?"INFORMASI PEMBELIAN":"PURCHASE INFORMATION";
+ document.getElementById("noticeText").textContent=language==="id"?"Pembayaran dilakukan secara manual. Setelah checkout, tunggu instruksi pembayaran dan konfirmasi admin sebelum item dikirim.":"Payments are handled manually. After checkout, wait for payment instructions and admin confirmation before items are delivered.";
+ document.getElementById("monthlyTitle").textContent=language==="id"?"👑 RANK BULANAN":"👑 MONTHLY RANKS";
+ document.getElementById("permanentTitle").textContent=language==="id"?"♾️ RANK PERMANENT":"♾️ PERMANENT RANKS";
+ document.getElementById("spawnerTitle").textContent=language==="id"?"🧟 SPAWNER":"🧟 SPAWNERS";
+ document.getElementById("keyTitle").textContent=language==="id"?"🔑 ZAVO KEYS":"🔑 ZAVO KEYS";
+ document.getElementById("cartTitle").textContent=language==="id"?"🛒 KERANJANG BELANJA":"🛒 SHOPPING CART";
+ document.getElementById("nickLabel").textContent=language==="id"?"Nickname Minecraft":"Minecraft Username";
+ document.getElementById("nickname").placeholder=language==="id"?"Masukkan nickname Minecraft":"Enter your Minecraft username";
+ document.getElementById("totalLabel").textContent=language==="id"?"TOTAL":"TOTAL";
+ document.getElementById("checkoutBtn").textContent=language==="id"?"CHECKOUT VIA WHATSAPP":"CHECKOUT VIA WHATSAPP";
+ renderProducts();
+ renderCart();
+}
+
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
+
